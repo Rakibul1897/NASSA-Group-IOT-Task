@@ -1,0 +1,42 @@
+int ledPin1 = 13; 
+int inputPin = 2; 
+int val = 0;
+
+int ledPin2 = 8;
+int inputPin2 = A0; 
+int celsius = 0;
+int lowestTemp = 18;
+ 
+void setup() {
+
+  pinMode(ledPin1, OUTPUT);
+  pinMode(inputPin, INPUT);
+  
+  pinMode(inputPin2, INPUT);
+  pinMode(ledPin2, OUTPUT);
+  
+  Serial.begin(9600);
+}
+
+void loop() {
+  
+  val = digitalRead(inputPin);
+  celsius = map(((analogRead(inputPin2) - 20) * 3.04), 0, 1023, -40, 125);
+  
+  Serial.println(celsius);
+  
+  if (celsius < lowestTemp) {
+    digitalWrite(ledPin2, LOW);
+  }
+  else{
+    digitalWrite(ledPin2, HIGH);
+  }
+
+  if(val == HIGH){
+    digitalWrite(ledPin1, HIGH);
+    delay(5000);
+  }
+  else{
+    digitalWrite(ledPin1, LOW);
+  }
+}
